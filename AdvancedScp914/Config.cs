@@ -7,5 +7,7 @@ namespace AdvancedScp914
     {
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; } = false;
+        
+        public UpgradeHandler UpgradeHandler { get; set; } = new();
     }
 }

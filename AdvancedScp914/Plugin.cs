@@ -3,12 +3,13 @@ using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using HarmonyLib;
 using events = Exiled.Events.Handlers;
+using lab = LabApi.Events.Handlers;
 
 namespace AdvancedScp914
 {
     public class Plugin : Plugin<Config>
     {
-        public override string Name => "AdvancedCommands";
+        public override string Name => "AdvancedScp914";
         public override string Prefix => Name;
         public override string Author => "Morkamo";
         public override Version RequiredExiledVersion => new(9, 1, 0);
@@ -16,25 +17,16 @@ namespace AdvancedScp914
 
         public static Plugin Instance;
         public static Harmony Harmony;
-        
-        private void InitClasses()
-        {
-            
-        }
-
-        private void DeInitClasses()
-        {
-            
-        }
+        public UpgradeHandler UpgradeHandler;
         
         private void RegisterEvents()
         {
-            
+            lab.Scp914Events.ProcessedPlayer += UpgradeHandler.OnPlayerProcessedInScp914;
         }
 
         private void UnregisterEvents()
         {
-            
+            lab.Scp914Events.ProcessedPlayer -= UpgradeHandler.OnPlayerProcessedInScp914;
         }
         
         public override void OnEnabled()
@@ -43,8 +35,9 @@ namespace AdvancedScp914
             
             Harmony = new Harmony("ru.morkamo.advancedScp914.patches");
             Harmony.PatchAll();
+
+            UpgradeHandler = Config.UpgradeHandler;
             
-            InitClasses();
             RegisterEvents();
             base.OnEnabled();
         }
@@ -52,10 +45,10 @@ namespace AdvancedScp914
         public override void OnDisabled()
         {
             UnregisterEvents();
-            DeInitClasses();
             
             Harmony.UnpatchAll();
-            
+
+            UpgradeHandler = null;
             Instance = null;
             base.OnDisabled();
         }
