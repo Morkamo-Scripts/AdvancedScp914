@@ -1,0 +1,63 @@
+﻿using System;
+using Exiled.API.Features;
+using Exiled.Events.EventArgs.Player;
+using HarmonyLib;
+using events = Exiled.Events.Handlers;
+
+namespace AdvancedScp914
+{
+    public class Plugin : Plugin<Config>
+    {
+        public override string Name => "AdvancedCommands";
+        public override string Prefix => Name;
+        public override string Author => "Morkamo";
+        public override Version RequiredExiledVersion => new(9, 1, 0);
+        public override Version Version => new(1, 0, 0);
+
+        public static Plugin Instance;
+        public static Harmony Harmony;
+        
+        private void InitClasses()
+        {
+            
+        }
+
+        private void DeInitClasses()
+        {
+            
+        }
+        
+        private void RegisterEvents()
+        {
+            
+        }
+
+        private void UnregisterEvents()
+        {
+            
+        }
+        
+        public override void OnEnabled()
+        {
+            Instance = this;
+            
+            Harmony = new Harmony("ru.morkamo.advancedScp914.patches");
+            Harmony.PatchAll();
+            
+            InitClasses();
+            RegisterEvents();
+            base.OnEnabled();
+        }
+
+        public override void OnDisabled()
+        {
+            UnregisterEvents();
+            DeInitClasses();
+            
+            Harmony.UnpatchAll();
+            
+            Instance = null;
+            base.OnDisabled();
+        }
+    }
+}
