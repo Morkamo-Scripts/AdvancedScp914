@@ -13,7 +13,7 @@ namespace AdvancedScp914
         public override string Prefix => Name;
         public override string Author => "Morkamo";
         public override Version RequiredExiledVersion => new(9, 1, 0);
-        public override Version Version => new(1, 0, 0);
+        public override Version Version => new(1, 1, 0);
 
         public static Plugin Instance;
         public static Harmony Harmony;

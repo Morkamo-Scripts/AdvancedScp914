@@ -1,4 +1,5 @@
 ﻿
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs.Map;
 using Exiled.Events.EventArgs.Scp914;
@@ -13,7 +14,7 @@ public class UpgradeHandler
 {
     public void OnPlayerProcessedInScp914(Scp914ProcessedPlayerEventArgs ev)
     {
-        if (ev.KnobSetting == Scp914KnobSetting.Rough)
+        /*if (ev.KnobSetting == Scp914KnobSetting.Rough)
         {
             switch (ev.Player.Role)
             {
@@ -61,6 +62,15 @@ public class UpgradeHandler
                 }
             }
             ev.Player.Kill("SCP-914");
+        }*/
+
+        if (ev.KnobSetting == Scp914KnobSetting.VeryFine)
+        {
+            if (ev.Player.IsHuman)
+            {
+                ev.Player.Health = ev.Player.MaxHealth;
+                Player.Get(ev.Player).ResetStamina();
+            }
         }
     }
 }
